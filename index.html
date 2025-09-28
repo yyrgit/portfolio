@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yesha Yadav | Portfolio</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        /* Custom Styles & Enhanced Animations */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a192f;
+            background-image: radial-gradient(circle at top right, rgba(100, 255, 218, 0.05), transparent 30%), radial-gradient(circle at bottom left, rgba(100, 255, 218, 0.05), transparent 40%);
+            color: #ccd6f6;
+            cursor: none; /* Hide default cursor */
+        }
+        .accent-color {
+            color: #64ffda;
+        }
+        .nav-link {
+            position: relative;
+            transition: color 0.3s;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #64ffda;
+            transition: width 0.3s;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .skill-card, .project-card, .cert-card {
+            background-color: #112240;
+            border: 1px solid #1d2d50;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+        .skill-card:hover, .project-card:hover, .cert-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 30px -15px rgba(2, 12, 27, 0.7);
+            border-color: #64ffda;
+        }
+        .btn-primary {
+             background-color: transparent;
+             border: 1px solid #64ffda;
+             color: #64ffda;
+             transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: rgba(100, 255, 218, 0.1);
+            transform: scale(1.05);
+        }
+        #scrollToTopBtn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: none;
+            z-index: 100;
+            transition: opacity 0.3s, transform 0.3s;
+            opacity: 0;
+            transform: translateY(10px);
+        }
+        #scrollToTopBtn.show {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Custom Cursor */
+        .cursor-dot,
+        .cursor-dot-outline {
+            pointer-events: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+            z-index: 9999;
+        }
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #64ffda;
+        }
+        .cursor-dot-outline {
+            width: 40px;
+            height: 40px;
+            border: 2px solid rgba(100, 255, 218, 0.5);
+        }
+        
+        /* GSAP Animation initial states */
+        .gsap-fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+    </style>
+</head>
+<body class="leading-relaxed">
+    
+    <div class="cursor-dot-outline"></div>
+    <div class="cursor-dot"></div>
+
+    <!-- Header & Navigation -->
+    <header id="header" class="bg-opacity-80 backdrop-blur-md bg-[#0a192f] fixed top-0 left-0 right-0 z-50 transition-all duration-300 shadow-md">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold accent-color">Yesha Yadav</a>
+            <nav class="hidden md:flex space-x-8">
+                <a href="#about" class="nav-link text-lg">About</a>
+                <a href="#skills" class="nav-link text-lg">Skills</a>
+                <a href="#projects" class="nav-link text-lg">Projects</a>
+                <a href="#certificates" class="nav-link text-lg">Certificates</a>
+                <a href="#contact" class="nav-link text-lg">Contact</a>
+            </nav>
+            <a href="assets/YeshaYadav_Resume.pdf" download="YeshaYadav_Resume.pdf" class="hidden md:block btn-primary font-medium rounded-lg text-sm px-5 py-2.5 text-center">Resume</a>
+            <button id="mobile-menu-btn" class="md:hidden focus:outline-none">
+                <i class="fas fa-bars text-2xl accent-color"></i>
+            </button>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
+            <a href="#about" class="block py-2">About</a>
+            <a href="#skills" class="block py-2">Skills</a>
+            <a href="#projects" class="block py-2">Projects</a>
+            <a href="#certificates" class="block py-2">Certificates</a>
+            <a href="#contact" class="block py-2">Contact</a>
+            <a href="assets/YeshaYadav_Resume.pdf" download="YeshaYadav_Resume.pdf" class="block py-2">Resume</a>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6 pt-24">
+
+        <!-- Hero Section -->
+        <section id="hero" class="min-h-screen flex items-center">
+            <div>
+                <p class="text-lg accent-color mb-4 gsap-fade-up">Hi, my name is</p>
+                <h1 class="text-4xl md:text-7xl font-bold text-slate-200 gsap-fade-up">Yesha Yadav.</h1>
+                <h2 class="text-4xl md:text-7xl font-bold text-slate-400 mt-2 gsap-fade-up">I build things for the web and beyond.</h2>
+                <p class="max-w-2xl mt-6 text-lg gsap-fade-up">I'm a passionate developer with a knack for creating dynamic and user-friendly applications. Currently exploring the world of web technologies, mobile development, and data analysis.</p>
+                <a href="#projects" class="inline-block btn-primary text-xl font-medium rounded-lg px-8 py-4 mt-8 gsap-fade-up">Check out my work!</a>
+            </div>
+        </section>
+
+        <!-- About Me Section -->
+        <section id="about" class="py-20">
+            <h2 class="text-3xl font-bold mb-8 accent-color flex items-center gsap-fade-up"><span class="mr-4 text-2xl">01.</span>About Me</h2>
+            <div class="grid md:grid-cols-5 gap-10">
+                <div class="md:col-span-3 text-lg gsap-fade-up">
+                    <p class="mb-4">
+                        I am a third-year 5th semester BTech Computer Science and Engineering student at Uka Tarsadia University. I have hands-on experience and a strong skill set in web development, Flutter, .NET, graphic design, and data analysis. I am also well-versed with core technologies and foundational tech stacks.
+                    </p>
+                    <p class="mb-4">
+                        I have completed internships at <strong class="text-slate-200">Quillix Solution</strong> and <strong class="text-slate-200">Edunet Foundation</strong>, where I contributed to real-world projects, including developing a full-fledged website. 
+                    </p>
+                    <p>
+                        I am passionate about continuous learning and committed to delivering high-quality work with a strong sense of responsibility and dedication.
+                    </p>
+                </div>
+                <div class="md:col-span-2 flex justify-center items-center gsap-fade-up">
+                    <div class="w-64 h-64 relative group">
+                        <div class="absolute inset-0 border-2 border-accent-color rounded-lg transform transition-transform duration-300 group-hover:translate-x-2 group-hover:translate-y-2"></div>
+                        <img src="assets/profile-pic.jpeg" alt="Yesha Yadav" class="relative w-full h-full object-cover rounded-lg shadow-xl transform transition-transform duration-300 group-hover:-translate-x-2 group-hover:-translate-y-2">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="py-20">
+            <h2 class="text-3xl font-bold mb-8 accent-color flex items-center gsap-fade-up"><span class="mr-4 text-2xl">02.</span>Skills</h2>
+            <div class="space-y-10">
+                <div class="gsap-fade-up">
+                    <h3 class="text-2xl font-semibold mb-4 text-slate-200">Technical Skills</h3>
+                    <div class="flex flex-wrap gap-4">
+                        <span class="skill-card p-4 rounded-lg shadow-lg">ReactJS</span>
+                        <span class="skill-card p-4 rounded-lg shadow-lg">Node.js</span>
+                        <span class="skill-card p-4 rounded-lg shadow-lg">HTML, CSS, JavaScript</span>
+                        <span class="skill-card p-4 rounded-lg shadow-lg">PHP</span>
+                        <span class="skill-card p-4 rounded-lg shadow-lg">Python</span>
+                        <span class="skill-card p-4 rounded-lg shadow-lg">Java</span>
+                        <span class="skill-card p-4 rounded-lg shadow-lg">C/C++</span>
+                        <span class="skill-card p-4 rounded-lg shadow-lg">Android Studio</span>
+                        <span class="skill-card p-4 rounded-lg shadow-lg">Flutter</span>
+                        <span class="skill-card p-4 rounded-lg shadow-lg">.NET</span>
+                        <span class="skill-card p-4 rounded-lg shadow-lg">PowerBI</span>
+                        <span class="skill-card p-4 rounded-lg shadow-lg">Adobe Photoshop</span>
+                        <span class="skill-card p-4 rounded-lg shadow-lg">Adobe Illustrator</span>
+                        <span class="skill-card p-4 rounded-lg shadow-lg">Git and GitHub</span>
+                    </div>
+                </div>
+                <div class="gsap-fade-up">
+                    <h3 class="text-2xl font-semibold mb-4 text-slate-200">Soft Skills</h3>
+                    <div class="flex flex-wrap gap-4">
+                        <span class="skill-card p-4 rounded-lg shadow-lg">Time Management</span>
+                        <span class="skill-card p-4 rounded-lg shadow-lg">Leadership</span>
+                        <span class="skill-card p-4 rounded-lg shadow-lg">Effective Communication</span>
+                        <span class="skill-card p-4 rounded-lg shadow-lg">Critical Thinking</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Projects Section -->
+        <section id="projects" class="py-20">
+            <h2 class="text-3xl font-bold mb-8 accent-color flex items-center gsap-fade-up"><span class="mr-4 text-2xl">03.</span>Projects</h2>
+            <div class="grid md:grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Project 1 -->
+                <div class="project-card p-6 rounded-lg shadow-lg flex flex-col gsap-fade-up">
+                    <div class="flex justify-between items-center mb-4">
+                        <i class="fas fa-folder-open text-4xl accent-color"></i>
+                        <div class="space-x-4">
+                             <a href="#" class="text-slate-400 hover:accent-color transition-colors"><i class="fab fa-github text-2xl"></i></a>
+                             <a href="#" class="text-slate-400 hover:accent-color transition-colors"><i class="fas fa-external-link-alt text-2xl"></i></a>
+                        </div>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-2 text-slate-200">E-commerce Platform Development</h3>
+                    <p class="mb-4 flex-grow">Led the development of a comprehensive e-commerce platform for a food ordering system, including features such as product listings, shopping cart, payment gateway integration, and order management.</p>
+                    <div class="flex flex-wrap gap-2 text-sm">
+                        <span class="text-slate-400">PHP</span>
+                        <span class="text-slate-400">Node.js</span>
+                        <span class="text-slate-400">CSS</span>
+                        <span class="text-slate-400">MySql</span>
+                    </div>
+                </div>
+                <!-- Project 2 -->
+                <div class="project-card p-6 rounded-lg shadow-lg flex flex-col gsap-fade-up">
+                    <div class="flex justify-between items-center mb-4">
+                        <i class="fas fa-folder-open text-4xl accent-color"></i>
+                        <div class="space-x-4">
+                             <a href="#" class="text-slate-400 hover:accent-color transition-colors"><i class="fab fa-github text-2xl"></i></a>
+                             <a href="#" class="text-slate-400 hover:accent-color transition-colors"><i class="fas fa-external-link-alt text-2xl"></i></a>
+                        </div>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-2 text-slate-200">Doctor Appointment Booking System</h3>
+                    <p class="mb-4 flex-grow">Built a responsive web app using PHP and MySQL to allow users to book doctor appointments based on specialization. Integrated dynamic doctor selection, form validation, and secure data handling with a clean Bootstrap UI.</p>
+                    <div class="flex flex-wrap gap-2 text-sm">
+                        <span class="text-slate-400">PHP</span>
+                        <span class="text-slate-400">MySQL</span>
+                        <span class="text-slate-400">HTML</span>
+                        <span class="text-slate-400">CSS</span>
+                        <span class="text-slate-400">JavaScript</span>
+                        <span class="text-slate-400">Bootstrap</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Certificates Section -->
+        <section id="certificates" class="py-20">
+            <h2 class="text-3xl font-bold mb-8 accent-color flex items-center gsap-fade-up"><span class="mr-4 text-2xl">04.</span>Certificates</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="cert-card p-6 rounded-lg shadow-lg gsap-fade-up">
+                    <i class="fas fa-award text-3xl accent-color mb-3"></i>
+                    <h3 class="text-xl font-semibold text-slate-200">Azure Fundamentals</h3>
+                </div>
+                <div class="cert-card p-6 rounded-lg shadow-lg gsap-fade-up">
+                    <i class="fas fa-award text-3xl accent-color mb-3"></i>
+                    <h3 class="text-xl font-semibold text-slate-200">AI HP Foundation LIFE Course</h3>
+                </div>
+                <div class="cert-card p-6 rounded-lg shadow-lg gsap-fade-up">
+                    <i class="fas fa-award text-3xl accent-color mb-3"></i>
+                    <h3 class="text-xl font-semibold text-slate-200">Solutions Architecture Job Simulation</h3>
+                </div>
+            </div>
+        </section>
+
+        <!-- Resume Section -->
+        <section id="resume" class="py-20 text-center gsap-fade-up">
+            <h2 class="text-3xl font-bold mb-4 text-slate-200">My Resume</h2>
+            <p class="max-w-xl mx-auto mb-8">Feel free to download my resume to get a more detailed look at my skills and experiences.</p>
+            <a href="assets/YeshaYadav_Resume.pdf" download="YeshaYadav_Resume.pdf" class="btn-primary text-xl font-medium rounded-lg px-8 py-4">Download Resume</a>
+        </section>
+        
+        <!-- Contact Section -->
+        <section id="contact" class="py-20 text-center gsap-fade-up">
+            <h2 class="text-3xl font-bold mb-4 accent-color"><span class="text-2xl">05.</span> Get In Touch</h2>
+            <p class="max-w-xl mx-auto mb-8">I'm currently open to new opportunities and collaborations. Whether you have a question or just want to say hi, my inbox is always open. I'll get back to you as soon as possible!</p>
+            <a href="mailto:your.email@example.com" class="btn-primary text-xl font-medium rounded-lg px-8 py-4">Say Hello</a>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-8">
+        <div class="container mx-auto px-6 text-center text-slate-400 gsap-fade-up">
+            <p>&copy; 2025 Yesha Yadav. All Rights Reserved.</p>
+            <p>Designed & Built by Yesha Yadav</p>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <button id="scrollToTopBtn" class="bg-[#64ffda] text-[#0a192f] rounded-full w-12 h-12 shadow-lg hover:bg-opacity-80 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#64ffda]">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+    
+    <!-- GSAP CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // GSAP Animation
+            gsap.registerPlugin(ScrollTrigger);
+            
+            // Hero Section Intro Animation
+            const heroTimeline = gsap.timeline({ defaults: { ease: 'power3.out' } });
+            heroTimeline.fromTo('.gsap-fade-up', 
+                { opacity: 0, y: 30 }, 
+                { opacity: 1, y: 0, duration: 0.8, stagger: 0.2, delay: 0.2 }
+            );
+
+            // Scroll-triggered animations for all other sections
+            gsap.utils.toArray('.gsap-fade-up').forEach((elem, i) => {
+                // Skip hero elements as they are already animated
+                if (elem.closest('#hero')) return;
+
+                gsap.fromTo(elem, 
+                    { opacity: 0, y: 40 },
+                    {
+                        opacity: 1,
+                        y: 0,
+                        duration: 1,
+                        scrollTrigger: {
+                            trigger: elem,
+                            start: 'top 85%',
+                            toggleActions: 'play none none none',
+                        },
+                        stagger: {
+                            amount: 0.4
+                        }
+                    }
+                );
+            });
+
+
+            // Mobile Menu Toggle
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+            
+            const mobileLinks = mobileMenu.querySelectorAll('a');
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                     mobileMenu.classList.add('hidden');
+                });
+            });
+
+            // Header shadow on scroll
+            const header = document.getElementById('header');
+            window.addEventListener('scroll', () => {
+                if(window.scrollY > 50) {
+                    header.classList.add('shadow-lg');
+                } else {
+                    header.classList.remove('shadow-lg');
+                }
+            });
+
+            // Scroll to Top Button
+            const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 300) {
+                    scrollToTopBtn.classList.add('show');
+                } else {
+                    scrollToTopBtn.classList.remove('show');
+                }
+            });
+            
+            scrollToTopBtn.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+
+            // Custom Cursor
+            const cursorDot = document.querySelector(".cursor-dot");
+            const cursorOutline = document.querySelector(".cursor-dot-outline");
+            
+            window.addEventListener("mousemove", function (e) {
+                const posX = e.clientX;
+                const posY = e.clientY;
+
+                cursorDot.style.opacity = "1";
+                cursorOutline.style.opacity = "1";
+                
+                cursorDot.style.left = `${posX}px`;
+                cursorDot.style.top = `${posY}px`;
+                
+                gsap.to(cursorOutline, { duration: 0.3, left: `${posX}px`, top: `${posY}px` });
+            });
+            
+            // Cursor effects on hover
+            document.querySelectorAll('a, button, .skill-card, .project-card, .cert-card').forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    gsap.to(cursorOutline, {
+                        transform: 'translate(-50%, -50%) scale(1.5)',
+                        backgroundColor: 'rgba(100, 255, 218, 0.2)',
+                        borderColor: 'transparent'
+                    });
+                });
+                el.addEventListener('mouseleave', () => {
+                     gsap.to(cursorOutline, {
+                        transform: 'translate(-50%, -50%) scale(1)',
+                        backgroundColor: 'transparent',
+                        borderColor: 'rgba(100, 255, 218, 0.5)'
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+
